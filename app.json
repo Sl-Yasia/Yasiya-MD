@@ -1,16 +1,17 @@
 
 {
 	"name": "WhatsAppBot-MD",
-	"description": "Fully Costamisable Bot by, Alien-Alfa.",
-	"repository": "https://github.com/Alien-Alfa/WhatsAppBot-MD",
-	"website": "https://small-sharp-tool.com/",
-	"logo": "https://avatars.githubusercontent.com/u/64305844?v=4",
+	"description": "Fully Costamisable Bot.",
+	"repository": "https://github.com/Sl-Yasia/Yasiya-MD",
+	"website": "https://github.com/Sl-Yasia/Yasiya-MD",
+	"logo": "https://i.imgur.com/pPIAKag.jpg",
 	"keywords": ["multi-device","WhatsApp Bot"],
     	"stack": "container",
 	"env": { 
     "ANTI_LINK": {
       "description": "true/false",
-      "required": false
+      "required": false,
+      "value": "false"
     },
     "ANTILINK_ACTION": {
       "description": "kick",
@@ -31,24 +32,27 @@
     },
     "LOGS": {
       "description": "need to show message logs ?",
-      "required": false
+      "required": false,
+      "value": "true"
     },
     "PACKNAME": {
       "description": "Sticker Packname",
-      "required": false
+      "required": false,
+      "value": "Yasiya"
     },
-
     "GOODBYE_MSG": {
       "description": "goodbye Message",
       "required": false
     },
     "AUTHOR": {
       "description": "Sticker Pack AUTHOR",
-      "required": false
+      "required": false,
+      "value": "Yasiya"
     },
     "SUDO": {
       "description": "sudo numbers with country code seperate with , for multiple numbers",
-      "required": false
+      "required": false,
+      "value": "94741745737"
     },
     "HEROKU_APP_NAME": {
       "description": "Heroku app name, same as above entered",
