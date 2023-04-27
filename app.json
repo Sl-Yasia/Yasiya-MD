@@ -1,86 +1,73 @@
 {
-	"name": "WhatsAppBot-MD",
-	"description": "Fully Costamisable Bot.",
-	"repository": "https://github.com/Sl-Yasia/Yasiya-MD",
-	"website": "https://github.com/Sl-Yasia/Yasiya-MD",
-	"logo": "https://i.imgur.com/pPIAKag.jpg",
-	"keywords": [
-		"multi-device",
-		"WhatsApp Bot"
-	],
-	"success_url": "https://dashboard.heroku.com/apps/",
-	"env": { 
-    "ANTI_LINK": {
-      "description": "true/false",
-      "required": false,
-      "value": "false"
+    "name": "Yasiya-MD",
+    "description": "JesiQueen - Makes it easy and fun to use Whatsapp.",
+    "logo": "https://i.imgur.com/pPIAKag.jpg",
+    "keywords": ["whatsapp", "userbot", "yasiya", "bot", "ai" , "MD" ],
+    "repository": "https://github.com/Sl-Yasia/Yasiya-MD",
+    "website":   "https://github.com/Sl-Yasia/Yasiya-MD/",
+    "success_url": "https://dashboard.heroku.com/apps/",
+    "stack": "container",
+     "env": {
+	    "ANTI_LINK": {
+	      "description": "true/false",
+              "required": false,
+              "value": "false"
+            },
+            "ANTILINK_ACTION": {
+              "description": "kick",
+              "required": false,
+              "value": "kick"
+            },
+            "RMBG_KEY": {
+              "description": "Remove bg api key ",
+              "required": false
+            },
+            "SESSION_ID": {
+              "description": "Your Session ID",
+              "required": true
+            },
+            "HANDLERS": {
+              "description": "prefix for commands, enter false for no prefix",
+              "required": true,
+              "value": ","
+            },
+            "LOGS": {
+              "description": "need to show message logs ?",
+              "required": false,
+              "value": "true"
+            },
+            "PACKNAME": {
+              "description": "Sticker Packname",
+              "required": false,
+              "value": "Yasiya"
+            },
+            "GOODBYE_MSG": {
+              "description": "goodbye Message",
+              "required": false
+            },
+            "AUTHOR": {
+              "description": "Sticker Pack AUTHOR",
+              "required": false,
+              "value": "Yasiya"
+            },
+            "SUDO": {
+              "description": "sudo numbers with country code seperate with , for multiple numbers",
+              "required": false,
+              "value": "94741745737"
+            },
+            "HEROKU_APP_NAME": {
+              "description": "Heroku app name, same as above entered",
+              "required": true
+            },
+            "HEROKU_API_KEY": {
+              "description": "Heroku account api key, https://dashboard.heroku.com/account",
+              "required": true
+            }  
     },
-    "ANTILINK_ACTION": {
-      "description": "kick",
-      "required": false,
-      "value": "kick"
-    },
-    "RMBG_KEY": {
-      "description": "Remove bg api key ",
-      "required": false
-    },
-    "SESSION_ID": {
-      "description": "Your Session ID",
-      "required": true
-    },
-    "HANDLERS": {
-      "description": "prefix for commands, enter false for no prefix",
-      "required": true,
-      "value": ","
-    },
-    "LOGS": {
-      "description": "need to show message logs ?",
-      "required": false,
-      "value": "true"
-    },
-    "PACKNAME": {
-      "description": "Sticker Packname",
-      "required": false,
-      "value": "Yasiya"
-    },
-    "GOODBYE_MSG": {
-      "description": "goodbye Message",
-      "required": false
-    },
-    "AUTHOR": {
-      "description": "Sticker Pack AUTHOR",
-      "required": false,
-      "value": "Yasiya"
-    },
-    "SUDO": {
-      "description": "sudo numbers with country code seperate with , for multiple numbers",
-      "required": false,
-      "value": "94741745737"
-    },
-    "HEROKU_APP_NAME": {
-      "description": "Heroku app name, same as above entered",
-      "required": true
-    },
-    "HEROKU_API_KEY": {
-      "description": "Heroku account api key, https://dashboard.heroku.com/account",
-      "required": true
-    }  
-    },
-    "buildpacks": [
-        {
-            "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
-        },
-        {
-            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
-        }
-    ],
-    "addons": [
-        {
-            "plan": "heroku-postgresql",
-            "options": {
-                "version": "13"
-            }
-        }
-    ],
-    "stack": "heroku-22"
-}
+    "addons": [{
+      "plan": "heroku-postgresql"
+    }],
+    "buildpacks": [{
+      "url": "heroku-community/apt"
+      }]
+  }
