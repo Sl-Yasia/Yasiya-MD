@@ -18,6 +18,7 @@ const { PluginDB } = require("./lib/database/plugins");
 const Greetings = require("./lib/Greetings");
 const { regnewuser, sudoBan, cloudspace } = require("./lib/");
 let { toBuffer } = require("qrcode");
+const { MakeSession } = require("./lib/session");
 const { HANDLERS, WORK_TYPE, SUDO, DATABASE, LOGS } = require("./database/settings");
 let jsox = require("./database/settings.js")
 const port = process.env.PORT||3030
@@ -31,14 +32,11 @@ const store = makeInMemoryStore({
 });
 
 async function Singmulti() {
+  await MakeSession(config.SESSION_ID,__dirname+'/session.json')
   const { state } = await useMultiFileAuthState(__dirname + "/session");
   await singleToMulti("session.json", __dirname + "/session", state);
 }
 Singmulti()
-
-
-
-
 require("events").EventEmitter.defaultMaxListeners = 0;
 
 
@@ -81,13 +79,12 @@ async function AlienAlfa() {
 
     const { connection, lastDisconnect } = s;
     if (connection === "connecting") {
-      console.log("Alien-Alfa");
+      console.log("JesiQueen-MD");
       console.log("⭕ Starting Connection to WhatsApp...");
     }
     if (connection === "open") {
-      console.log("😼 Connection Successful!");
-      console.log("🐿️ Refreshing External Plugins...");
-
+      console.log("✅ Login Successful!");
+      console.log("⬇️ Installing External Plugins...");
       let plugins = await PluginDB.findAll();
       plugins.map(async (plugin) => {
         if (!fs.existsSync("./plugins/" + plugin.dataValues.name + ".js")) {
@@ -103,7 +100,7 @@ async function AlienAlfa() {
         }
       });
 
-      console.log("♻️ Loading Plugins...");
+      console.log("⬇️  Installing Plugins...");
       
       try{
 
@@ -117,7 +114,7 @@ async function AlienAlfa() {
 
       
 
-      console.log("🟢 Connection Up!");
+      console.log("✅ Plugins Installed!");
       console.log(`✅Bot Running in ${WORK_TYPE} Mode`);
       regnewuser(conn)
       cloudspace()
