@@ -2,35 +2,35 @@
   "name": "Jesi-MD",
   "version": "1.0.0",
   "description": "JesiMD project - a Whatsapp userbot helping to improve your Whatsapp experience.",
-  "main": "./media/server.js",
+  "main": "./bot.js",
   "scripts": {
-    "start": "node ./media/server.js"
+    "start": "node bot.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Alien-Alfa/WhatsBotAlfa-MD.git"
+    "url": "git+https://github.com/Sl-Yasia/Yasiya-MD.git"
   },
   "keywords": [
     "whatsapp",
     "bot",
     "ai",
-    "asena",
+    "jesi",
     "api",
     "unlimited",
-    "asenadev",
+    "jesidev",
     "machine learning",
     "automatic",
     "whatsapp web",
     "whatsapp api",
-    "WhatsAsena"
+    "JesiQueen"
   ],
-  "author": "Alien-Alfa",
-  "developer": "Alien-Alfa / Alien-Alfa",
+  "author": "Sl-Yasia",
+  "developer": "Sl-Yasia/Yasiya-MD",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/Alien-Alfa/WhatsBotAlfa-MD/issues"
+    "url": "https://github.com/Sl-Yasia/Yasiya-MD/issues"
   },
-  "homepage": "https://github.com/Alien-Alfa/WhatsBotAlfa-MD#readme",
+  "homepage": "https://github.com/Sl-Yasia/Yasiya-MD#readme",
   "dependencies": {
     "@adiwajshing/baileys": "^4.4.0",
     "@adiwajshing/keyed-db": "^0.2.4",
