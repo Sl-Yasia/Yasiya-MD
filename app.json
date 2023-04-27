@@ -5,7 +5,7 @@
     "keywords": ["whatsapp", "userbot", "yasiya", "bot", "ai" , "MD" ],
     "repository": "https://github.com/Sl-Yasia/Yasiya-MD",
     "website":   "https://github.com/Sl-Yasia/Yasiya-MD/",
-    "success_url": "https://dashboard.heroku.com/apps/",
+    "success_url": "/https://dashboard.heroku.com/apps",
     "stack": "container",
      "env": {
 	    "ANTI_LINK": {
@@ -20,7 +20,8 @@
             },
             "RMBG_KEY": {
               "description": "Remove bg api key ",
-              "required": false
+              "required": false,
+	      "value": ""
             },
             "SESSION_ID": {
               "description": "Your Session ID",
@@ -29,7 +30,7 @@
             "HANDLERS": {
               "description": "prefix for commands, enter false for no prefix",
               "required": true,
-              "value": ","
+              "value": "."
             },
             "LOGS": {
               "description": "need to show message logs ?",
@@ -43,7 +44,8 @@
             },
             "GOODBYE_MSG": {
               "description": "goodbye Message",
-              "required": false
+              "required": false,
+	      "value": ""
             },
             "AUTHOR": {
               "description": "Sticker Pack AUTHOR",
