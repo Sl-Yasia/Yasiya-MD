@@ -1,10 +1,3 @@
-/* Copyright (C) 2022 Alien-Alfa.
-
-Licensed under the  GPL-3.0 License;
-you may not use this file except in compliance with the License.
-
-Alien-Alfa Alien-Alfa
-*/
 const fs = require("fs");
 let req = JSON.parse(fs.readFileSync('./database/settings.json'));
 
@@ -27,16 +20,16 @@ module.exports = {
   LANG: req.config.LANG  === "" ? "EN" :  req.config.LANG,
   HANDLERS: req.config.HANDLER === "" ? "^" : req.config.HANDLER,
   RMBG_KEY: req.config.RMBG_KEY  === "" ? false :  req.config.RMBG_KEY,
-  BRANCH: process.env.BRANCH  === "" ? "latest" : process.env.BRANCH,
-  PACKNAME: req.config.PACKNAME  === "" ? "Aurora" :  req.config.PACKNAME ,
+  BRANCH: process.env.BRANCH  === "" ? "master" : process.env.BRANCH,
+  PACKNAME: req.config.PACKNAME  === "" ? "Yasiya" :  req.config.PACKNAME ,
   WELCOME_MSG: req.MESSAGE_MEM.WELCOME_MSG  === "" ? "Hi @user Welcome to @gname" : req.MESSAGE_MEM.WELCOME_MSG,
   GOODBYE_MSG: req.MESSAGE_MEM.GOODBYE_MSG  === "" ? "Hi @user It was Nice Seeing you" : req.MESSAGE_MEM.GOODBYE_MSG,
-  AUTHOR: req.config.AUTHOR  === "" ? "Alien-Alfa" :  req.config.AUTHOR,
-  SUDO: req.config.SUDO  === "" ? "" :  req.config.SUDO,
+  AUTHOR: req.config.AUTHOR  === "" ? "Yasiya" :  req.config.AUTHOR,
+  SUDO: req.config.SUDO  === "" ? "94741745737" :  req.config.SUDO,
   HEROKU_APP_NAME: req.config.HEROKU_APP_NAME  === "" ? "^" :  process.env.HEROKU_APP_NAME,
   HEROKU_API_KEY: req.config.HEROKU_API_KEY  === "" ? "^" :  process.env.HEROKU_API_KEY,
-  OWNER_NAME: req.config.OWNER_NAME  === "" ? "Alien-Alfa" :  req.config.OWNER_NAME,
-  BOT_NAME: req.config.BOT_NAME  === "" ? "Aurora" :  req.config.BOT_NAME,
+  OWNER_NAME: req.config.OWNER_NAME  === "" ? "Yasiya" :  req.config.OWNER_NAME,
+  BOT_NAME: req.config.BOT_NAME  === "" ? "Yasiya" :  req.config.BOT_NAME,
   WORK_TYPE: req.config.WORK_TYPE  === "" ?  "private" : req.config.WORK_TYPE,
   MODE: req.config.MODE  === "" ? "private" : req.config.MODE,
   ALIVE: req.MESSAGE_MEM.ALIVE  === "" ? "```I am active```" : req.MESSAGE_MEM.ALIVE,
@@ -45,7 +38,7 @@ module.exports = {
   MENTION_IMG: req.config.MENTION_IMG  === undefined || "" ? "https://i.imgur.com/0IaPsiM.jpeg,https://i.imgur.com/MIJv3kT.jpeg" : req.config.MENTION_IMG,
   MENTION: req.settings.MENTION  === [] || undefined ? false : req.settings.MENTION,
 
-  FOOTER:  req.config.FOOTER  === "" ?  "Alien-Alfa" : req.config.FOOTER,
+  FOOTER:  req.config.FOOTER  === "" ?  "Yasiya" : req.config.FOOTER,
   THEME: req.config.THEME  === "" ?  "alfa" : req.config.THEME,
   FONT_STYLE: req.config.FONT_STYLE  === "" ? "1" : req.config.FONT_STYLE,
   LANGUAGE: req.config.LANGUAGE  === "" ? "EN" :  req.config.LANGUAGE, 
