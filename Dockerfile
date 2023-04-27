@@ -1,18 +1,8 @@
-FROM node:lts-buster
+FROM quay.io/sampandey001/secktor
 
-RUN apt-get update && \
-  apt-get install -y \
-  ffmpeg \
-  imagemagick \
-  webp && \
-  apt-get upgrade -y && \
-  npm i pm2 -g && \
-  rm -rf /var/lib/apt/lists/*
+RUN git clone https://github.com/Sl-Yasia/Yasiya-MD /root/Yasiya-MD
+WORKDIR /root/Yasiya-MD/
+RUN npm install npm@latest
+RUN yarn install --network-concurrency 1
 
-COPY package.json .
-
-RUN yarn install
-
-COPY . .
-
-CMD ["pm2-runtime", "."]
+CMD ["node", "bot.js"]
