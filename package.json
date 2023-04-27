@@ -4,11 +4,14 @@
   "description": "JesiMD project - a Whatsapp userbot helping to improve your Whatsapp experience.",
   "main": "./bot.js",
   "scripts": {
-    "start": "node bot.js"
+    "start": "supervisor -s bot.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sl-Yasia/Yasiya-MD.git"
+  },
+  "engines" : { 
+    "node" : ">=14.19.3"
   },
   "keywords": [
     "whatsapp",
