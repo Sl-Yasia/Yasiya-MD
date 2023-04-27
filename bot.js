@@ -6,6 +6,7 @@ const {
   useMultiFileAuthState,
 } = require("@adiwajshing/baileys");
 const singleToMulti = require("./lib/singleToMulti");
+const config = require("./config");
 const fs = require("fs");
 const { writeFile, readFile } = require("fs");
 const { serialize } = require("./lib/serialize");
@@ -19,7 +20,7 @@ const Greetings = require("./lib/Greetings");
 const { regnewuser, sudoBan, cloudspace } = require("./lib/");
 let { toBuffer } = require("qrcode");
 const { MakeSession } = require("./lib/session");
-const { HANDLERS, WORK_TYPE, SUDO, DATABASE, LOGS } = require("./database/settings");
+const { HANDLERS, WORK_TYPE, SUDO, DATABASE, LOGS } = require("./config");
 let jsox = require("./database/settings.js")
 const port = process.env.PORT||3030
 const express = require("express");
