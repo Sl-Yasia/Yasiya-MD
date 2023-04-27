@@ -1,12 +1,14 @@
-
 {
 	"name": "WhatsAppBot-MD",
 	"description": "Fully Costamisable Bot.",
 	"repository": "https://github.com/Sl-Yasia/Yasiya-MD",
 	"website": "https://github.com/Sl-Yasia/Yasiya-MD",
 	"logo": "https://i.imgur.com/pPIAKag.jpg",
-	"keywords": ["multi-device","WhatsApp Bot"],
-    	"stack": "container",
+	"keywords": [
+		"multi-device",
+		"WhatsApp Bot"
+	],
+	"success_url": "https://dashboard.heroku.com/apps/",
 	"env": { 
     "ANTI_LINK": {
       "description": "true/false",
@@ -15,7 +17,8 @@
     },
     "ANTILINK_ACTION": {
       "description": "kick",
-      "required": false
+      "required": false,
+      "value": "kick"
     },
     "RMBG_KEY": {
       "description": "Remove bg api key ",
@@ -62,12 +65,22 @@
       "description": "Heroku account api key, https://dashboard.heroku.com/account",
       "required": true
     }  
-        
-     },
-    "addons": [{
-      "plan": "heroku-postgresql"
-    }],
-    "buildpacks": [{
-      "url": "heroku-community/apt"
-      }]
-  }
+    },
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "addons": [
+        {
+            "plan": "heroku-postgresql",
+            "options": {
+                "version": "13"
+            }
+        }
+    ],
+    "stack": "heroku-22"
+}
