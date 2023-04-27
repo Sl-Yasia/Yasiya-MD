@@ -56,7 +56,7 @@ async function AlienAlfa() {
     auth: state,
     printQRInTerminal: true,
     generateHighQualityLinkPreview: true,
-    browser: Browsers.macOS("Desktop"),
+    browser: ['JesiQueen-MD', 'safari', '1.0.0'],
     fireInitQueries: false,
     shouldSyncHistoryMessage: false,
     downloadHistory: false,
