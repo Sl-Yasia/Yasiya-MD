@@ -1,7 +1,7 @@
 {
-  "name": "alienalfa",
-  "version": "2.0.0",
-  "description": "WhatsAsena project - a Whatsapp userbot helping to improve your Whatsapp experience.",
+  "name": "Jesi-MD",
+  "version": "1.0.0",
+  "description": "JesiMD project - a Whatsapp userbot helping to improve your Whatsapp experience.",
   "main": "./media/server.js",
   "scripts": {
     "start": "node ./media/server.js"
