@@ -1,4 +1,6 @@
 
+
+ 
 const {
   default: makeWASocket,
   Browsers,
@@ -6,50 +8,42 @@ const {
   useMultiFileAuthState,
 } = require("@adiwajshing/baileys");
 const singleToMulti = require("./lib/singleToMulti");
-const config = require("./config");
 const fs = require("fs");
-const { writeFile, readFile } = require("fs");
 const { serialize } = require("./lib/serialize");
 const { Message, Image, Sticker } = require("./lib/Base");
 const pino = require("pino");
 const path = require("path");
 const events = require("./lib/event");
 const got = require("got");
+const config = require("./config");
 const { PluginDB } = require("./lib/database/plugins");
 const Greetings = require("./lib/Greetings");
-const { regnewuser, sudoBan, cloudspace } = require("./lib/");
-let { toBuffer } = require("qrcode");
 const { MakeSession } = require("./lib/session");
-const { HANDLERS, WORK_TYPE, SUDO, DATABASE, LOGS } = require("./config");
-let jsox = require("./database/settings.js")
-const port = process.env.PORT||3030
-const express = require("express");
-const app = express();
-
-
-
+const { async } = require("q");
+const { decodeJid } = require("./lib");
 const store = makeInMemoryStore({
   logger: pino().child({ level: "silent", stream: "store" }),
 });
-
 async function Singmulti() {
-  await MakeSession(config.SESSION_ID,__dirname+'/session.json')
+  if (!fs.existsSync(__dirname + "/session.json"))
+    await MakeSession(config.SESSION_ID, __dirname + "/session.json");
   const { state } = await useMultiFileAuthState(__dirname + "/session");
   await singleToMulti("session.json", __dirname + "/session", state);
 }
-Singmulti()
+//Singmulti()
 require("events").EventEmitter.defaultMaxListeners = 0;
-
 
 fs.readdirSync(__dirname + "/lib/database/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
     require(__dirname + "/lib/database/" + plugin);
   }
 });
-async function AlienAlfa() {
-  const { state ,saveCreds} = await useMultiFileAuthState(__dirname + "/session");
+async function Xasena() {
+  const { state, saveCreds } = await useMultiFileAuthState(
+    __dirname + "/session"
+  );
   console.log("Syncing Database");
-  await DATABASE.sync();
+  await config.DATABASE.sync();
   let conn = makeWASocket({
     logger: pino({ level: "silent" }),
     auth: state,
@@ -67,25 +61,27 @@ async function AlienAlfa() {
   });
   store.bind(conn.ev);
   setInterval(() => {
-    store.writeToFile("./database/store.json"); 
-     cloudspace()
-  }, 10 * 60 * 1000);
+    store.writeToFile("./database/store.json");
+  }, 30 * 1000);
 
   conn.ev.on("creds.update", saveCreds);
-
-  conn.ev.on("connection.update", async (s) => {
-    if (s.qr) {
-     // res.end(await toBuffer(s.qr));
+  conn.ev.on("contacts.update", (update) => {
+    for (let contact of update) {
+      let id = decodeJid(contact.id);
+      if (store && store.contacts)
+        store.contacts[id] = { id, name: contact.notify };
     }
-
+  });
+  conn.ev.on("connection.update", async (s) => {
     const { connection, lastDisconnect } = s;
     if (connection === "connecting") {
-      console.log("JesiQueen-MD");
-      console.log("⭕ Starting Connection to WhatsApp...");
+      console.log("X-Asena");
+      console.log("ℹ️ Connecting to WhatsApp... Please Wait.");
     }
     if (connection === "open") {
       console.log("✅ Login Successful!");
       console.log("⬇️ Installing External Plugins...");
+
       let plugins = await PluginDB.findAll();
       plugins.map(async (plugin) => {
         if (!fs.existsSync("./plugins/" + plugin.dataValues.name + ".js")) {
@@ -102,41 +98,30 @@ async function AlienAlfa() {
       });
 
       console.log("⬇️  Installing Plugins...");
-      
-      try{
 
       fs.readdirSync(__dirname + "/plugins").forEach((plugin) => {
         if (path.extname(plugin).toLowerCase() == ".js") {
           require(__dirname + "/plugins/" + plugin);
         }
       });
-
-    } catch(err) { console.log(err) }
-
-      
-
       console.log("✅ Plugins Installed!");
-      console.log(`✅Bot Running in ${WORK_TYPE} Mode`);
-      regnewuser(conn)
-      cloudspace()
-      console.log("Sudo: " +SUDO)
-      console.log("Handler: "+HANDLERS)
+      let str = `JesiQueen Working Now...`;
+      conn.sendMessage(conn.user.id, { text: str });
 
       try {
         conn.ev.on("group-participants.update", async (data) => {
           Greetings(data, conn);
-          sudoBan(data, conn);
         });
-
         conn.ev.on("messages.upsert", async (m) => {
           if (m.type !== "notify") return;
           const ms = m.messages[0];
-          let msg = await serialize(JSON.parse(JSON.stringify(ms)), conn);
+          let msg = await serialize(JSON.parse(JSON.stringify(ms)), conn,store);
           if (!msg.message) return;
           if (msg.body[1] && msg.body[1] == " ")
             msg.body = msg.body[0] + msg.body.slice(2);
           let text_msg = msg.body;
-          if (text_msg && LOGS)
+          msg.store = store;
+          if (text_msg && config.LOGS)
             console.log(
               `At : ${
                 msg.from.endsWith("@g.us")
@@ -148,7 +133,7 @@ async function AlienAlfa() {
           events.commands.map(async (command) => {
             if (
               command.fromMe &&
-              !SUDO.split(",").includes(
+              !config.SUDO.split(",").includes(
                 msg.sender.split("@")[0] || !msg.isSelf
               )
             )
@@ -159,7 +144,9 @@ async function AlienAlfa() {
                 ? text_msg[0] +
                   text_msg.slice(1).trim().split(" ")[0].toLowerCase()
                 : "";
-              msg.prefix = new RegExp(HANDLERS).test(text_msg) ? text_msg.split("").shift() : "^";
+              msg.prefix = new RegExp(config.HANDLERS).test(text_msg)
+                ? text_msg.split("").shift()
+                : ",";
             }
             if (command.pattern && command.pattern.test(comman)) {
               var match;
@@ -193,35 +180,23 @@ async function AlienAlfa() {
       }
     }
     if (connection === "close") {
-      console.log(s)
+      console.log(s);
       console.log(
         "Connection closed with bot. Please put New Session ID again."
       );
-      AlienAlfa().catch((err) => console.log(err));
+      Xasena().catch((err) => console.log(err));
     } else {
       /*
        */
     }
   });
-
-  
-  process.on("uncaughtException", (err) => {
+  process.on("uncaughtException", async (err) => {
     let error = err.message;
-   // conn.sendMessage(conn.user.id, { text: error });
+    await conn.sendMessage(conn.user.id, { text: error });
     console.log(err);
   });
-} module.exports = AlienAlfa
-
-global.prefix;
-if(HANDLERS === "^" || "false" ){ prefix = '' }
-else { prefix = HANDLERS }
-
-const html = fs.readFileSync("./Alien/check.html")
-app.get("/", (req, res) => res.type('html').send(html));
-app.listen(port, () => console.log(`AlienAlfa Server listening on port http://localhost:${port}!`));
+}
 
 setTimeout(() => {
-  AlienAlfa().catch((err) => console.log(err));
-}, 1500)
-
-
+  Xasena().catch((err) => console.log(err));
+}, 3000);
