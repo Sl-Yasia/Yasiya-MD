@@ -18,20 +18,28 @@ const got = require("got");
 const config = require("./config");
 const { PluginDB } = require("./lib/database/plugins");
 const Greetings = require("./lib/Greetings");
-const { MakeSession } = require("./lib/session");
+//const { MakeSession } = require("./lib/session");
 const { async } = require("q");
 const { decodeJid } = require("./lib");
+let cc = config.SESSION_ID.replace(/JESI-MD;;;/g, "");
 const store = makeInMemoryStore({
   logger: pino().child({ level: "silent", stream: "store" }),
 });
-async function Singmulti() {
-  if (!fs.existsSync(__dirname + "/session.json"))
-    await MakeSession(config.SESSION_ID, __dirname + "/session.json");
-  const { state } = await useMultiFileAuthState(__dirname + "/session");
-  await singleToMulti("session.json", __dirname + "/session", state);
+async function MakeSession(){
+if (!fs.existsSync(__dirname + "/lib/auth_info_baileys/creds.json")) {
+    if(cc.length<30){
+    const axios = require('axios');
+    let { data } = await axios.get('https://paste.c-net.org/'+cc)
+    await fs.writeFileSync(__dirname + "/lib/auth_info_baileys/creds.json", atob(data), "utf8")
+    } else {
+	 var c = atob(cc)
+         await fs.writeFileSync(__dirname + '/lib/auth_info_baileys/creds.json', c, "utf8")    
+    }
 }
-//Singmulti()
+}
+MakeSession()
 require("events").EventEmitter.defaultMaxListeners = 0;
+
 
 fs.readdirSync(__dirname + "/lib/database/").forEach((plugin) => {
   if (path.extname(plugin).toLowerCase() == ".js") {
@@ -40,7 +48,7 @@ fs.readdirSync(__dirname + "/lib/database/").forEach((plugin) => {
 });
 async function Xasena() {
   const { state, saveCreds } = await useMultiFileAuthState(
-    __dirname + "/session"
+    __dirname + "/lib/auth_info_baileys/"
   );
   console.log("Syncing Database");
   await config.DATABASE.sync();
